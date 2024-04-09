@@ -35,8 +35,8 @@ public class Division implements Operations {
             throw new InvalidArgsException("First argument must be a HashMap<String, Double> type");
         }
 
-        Double value1 = 0.0;
-        Double value2 = 0.0;
+        Double value1;
+        Double value2;
         if (op1 instanceof Double && op2 instanceof Double) {
             value1 = (Double) op1;
             value2 = (Double) op2;

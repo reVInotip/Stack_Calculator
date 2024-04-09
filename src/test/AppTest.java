@@ -2,18 +2,15 @@ package test;
 
 import controller.Calculator;
 import model.exceptions.NotFoundOperationsException;
-import model.operations.exceptions.OperationException;
 import model.operations.exceptions.arithmetic.ConstantNotDefineException;
 import model.operations.exceptions.arithmetic.ExtractRootFromNegativeNumberException;
 import model.operations.exceptions.arithmetic.ZeroDivisionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.function.Executable;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Ref;
 
 public class AppTest {
     private static final String _commandsDir = "/home/grisha/Projects/Stack_Calculator/src/commands";
@@ -34,12 +31,7 @@ public class AppTest {
     void testAddition() {
         System.out.println("=======TEST_ADDITION_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "PUSH b\n" +
-                    "DEFINE a 15\n" +
-                    "DEFINE b 6\n" +
-                    "+\n" +
-                    "POP\n");
+            writer.write("PUSH a\nPUSH b\nDEFINE a 15\nDEFINE b 6\n+\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Object result = calc.execute();
@@ -58,12 +50,7 @@ public class AppTest {
     void testDivision() {
         System.out.println("=======TEST_DIVISION_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "PUSH b\n" +
-                    "DEFINE a 15\n" +
-                    "DEFINE b 6\n" +
-                    "/\n" +
-                    "POP\n");
+            writer.write("PUSH a\nPUSH b\nDEFINE a 15\nDEFINE b 6\n/\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Object result = calc.execute();
@@ -82,12 +69,7 @@ public class AppTest {
     void testDivisionByZero() {
         System.out.println("=======TEST_DIVISION_BY_ZERO_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "PUSH b\n" +
-                    "DEFINE a 0\n" +
-                    "DEFINE b 6\n" +
-                    "/\n" +
-                    "POP\n");
+            writer.write("PUSH a\nPUSH b\nDEFINE a 0\nDEFINE b 6\n/\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Throwable exception = Assertions.assertThrows(ZeroDivisionException.class, calc::execute);
@@ -104,12 +86,7 @@ public class AppTest {
     void testMultiplication() {
         System.out.println("=======TEST_MULTIPLICATION_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "PUSH b\n" +
-                    "DEFINE a 15\n" +
-                    "DEFINE b 6\n" +
-                    "*\n" +
-                    "POP\n");
+            writer.write("PUSH a\nPUSH b\nDEFINE a 15\nDEFINE b 6\n*\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Object result = calc.execute();
@@ -128,10 +105,7 @@ public class AppTest {
     void testSQRT() {
         System.out.println("=======TEST_SQRT_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "DEFINE a 25\n" +
-                    "SQRT\n" +
-                    "POP\n");
+            writer.write("PUSH a\nDEFINE a 25\nSQRT\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Object result = calc.execute();
@@ -150,10 +124,7 @@ public class AppTest {
     void testSQRTFromNegativeNumber() {
         System.out.println("=======TEST_SQRT_FROM_NEGATIVE_NUMBER_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "DEFINE a -25\n" +
-                    "SQRT\n" +
-                    "POP\n");
+            writer.write("PUSH a\nDEFINE a -25\nSQRT\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Throwable exception = Assertions.assertThrows(ExtractRootFromNegativeNumberException.class, calc::execute);
@@ -170,12 +141,7 @@ public class AppTest {
     void testSubtraction() {
         System.out.println("=======TEST_SUBTRACTION_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "PUSH b\n" +
-                    "DEFINE a 15\n" +
-                    "DEFINE b 6\n" +
-                    "-\n" +
-                    "POP\n");
+            writer.write("PUSH a\nPUSH b\nDEFINE a 15\nDEFINE b 6\n-\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Object result = calc.execute();
@@ -194,11 +160,7 @@ public class AppTest {
     void testDefine() {
         System.out.println("=======TEST_DEFINE_START=======");
         try (FileWriter writer = new FileWriter(_commandsDir, false)) {
-            writer.write("PUSH a\n" +
-                    "PUSH b\n" +
-                    "DEFINE a 15\n" +
-                    "-\n" +
-                    "POP\n");
+            writer.write("PUSH a\nPUSH b\nDEFINE a 15\n-\nPOP\n");
             writer.close();
             Calculator calc = new Calculator(_commandsDir);
             Throwable exception = Assertions.assertThrows(ConstantNotDefineException.class, calc::execute);

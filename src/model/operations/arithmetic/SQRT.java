@@ -34,7 +34,7 @@ public class SQRT implements Operations {
             throw new InvalidArgsException("First argument must be a HashMap<String, Double> type");
         }
 
-        Double value = 0.0;
+        Double value;
         if (op instanceof Double) {
             value = (Double) op;
         } else if (op instanceof String) {
