@@ -12,16 +12,14 @@ import java.util.*;
 
 public class Calculator {
     final private BufferedReader _inputStream;
-    public static String _separator = " ";
+    public static final String _separator = " ";
 
     final OperationsFactory _factory;
-    final Set<String> _availableOperations;
     Stack<Object> _stack;
 
     public Calculator(String fileName) throws NotFoundOperationsException, FileNotFoundException {
         _inputStream = new BufferedReader(new FileReader(fileName));
         _factory = new OperationsFactory();
-        _availableOperations = _factory.operations();
         _stack = new Stack<>();
     }
 
