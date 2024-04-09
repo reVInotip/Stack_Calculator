@@ -171,4 +171,23 @@ public class AppTest {
         }
         System.out.println("=======TEST_DEFINE_END=======");
     }
+
+    @Test
+    @DisplayName("TEST_COMMENT")
+    void testComment() {
+        System.out.println("=======TEST_COMMENT_START=======");
+        try (FileWriter writer = new FileWriter(_commandsDir, false)) {
+            writer.write("PUSH a\nPUSH b\nDEFINE a 15\nDEFINE b 6\n# comment\n-\nPOP\n");
+            writer.close();
+            Calculator calc = new Calculator(_commandsDir);
+            Object result = calc.execute();
+            System.out.println("Comment ignore");
+            Assertions.assertInstanceOf(Double.class, result);
+            Assertions.assertEquals(-9.0, (Double) result);
+        } catch (Exception exception) {
+            _logger.error(exception.getMessage());
+            Assertions.fail();
+        }
+        System.out.println("=======TEST_COMMENT_END=======");
+    }
 }
